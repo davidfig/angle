@@ -193,8 +193,8 @@ function distanceTwoPointsSquared()
 
 /**
  * finds the closest cardinal (N, S, E, W) angle to the given angle
- * @params {number} angle
- * @returns {number}
+ * @param {number} angle
+ * @return {number} angle (equal to the defined constants NORTH, SOUTH, WEST, EAST or LEFT, RIGHT, UP, DOWN)
  */
 function closestAngle(angle)
 {
