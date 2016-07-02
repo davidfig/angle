@@ -19,6 +19,18 @@ var LEFT = Math.PI;
 var RIGHT = 0;
 
 /** @const {number} */
+var NORTH = UP;
+
+/** @const {number} */
+var SOUTH = DOWN;
+
+/** @const {number} */
+var WEST = LEFT;
+
+/** @const {number} */
+var EAST = RIGHT;
+
+/** @const {number} */
 var PI_2 = Math.PI * 2;
 
 var _toDegreeConversion = 180 / Math.PI;
@@ -179,11 +191,44 @@ function distanceTwoPointsSquared()
     }
 }
 
+/**
+ * finds the closest cardinal (N, S, E, W) angle to the given angle
+ * @params {number} angle
+ * @returns {number}
+ */
+function closestAngle(angle)
+{
+    var left = differenceAngles(angle, LEFT);
+    var right = differenceAngles(angle, RIGHT);
+    var up = differenceAngles(angle, UP);
+    var down = differenceAngles(angle, DOWN);
+    if (left <= right && left <= up && left <= down)
+    {
+        return LEFT;
+    }
+    else if (right <= up && right <= down)
+    {
+        return RIGHT;
+    }
+    else if (up <= down)
+    {
+        return UP;
+    }
+    else
+    {
+        return DOWN;
+    }
+}
+
 var Angle = {
     UP: UP,
     DOWN: DOWN,
     LEFT: LEFT,
     RIGHT: RIGHT,
+    NORTH: NORTH,
+    SOUTH: SOUTH,
+    EAST: EAST,
+    WEST: WEST,
     PI_2: PI_2,
     toDegrees: toDegrees,
     toRadians: toRadians,
@@ -194,6 +239,7 @@ var Angle = {
     angleTwoPoints: angleTwoPoints,
     distanceTwoPoints: distanceTwoPoints,
     distanceTwoPointsSquared: distanceTwoPointsSquared,
+    closestAngle: closestAngle
 };
 
 // Add support for AMD (Asynchronous Module Definition) libraries such as require.js.

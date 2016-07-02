@@ -36,3 +36,6 @@ Angle.toDegrees(radian, radians)
 
 // Degrees to Radian
 Angle.toRadian(degrees)
+
+// finds the closest cardinal (N, S, E, W) angle to the given angle
+Angle.closestAngle(angle)
