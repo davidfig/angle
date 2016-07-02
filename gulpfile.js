@@ -1,29 +1,23 @@
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
-	uglify = require('gulp-uglify'),
     browserify = require('gulp-browserify'),
-    documentation = require('gulp-documentation'),
-    jsdoc = require('gulp-jsdoc3');
+	uglify = require('gulp-uglify'),
+    documentation = require('gulp-documentation');
 
-var src = ['./src/*.js'];
+var src = [
+        './angle.js'
+    ];
 
 gulp.task("build", function() {
 	return gulp.src(src)
-        .pipe(browserify())
-		.pipe(concat('angle.min.js'))
 	    .pipe(uglify())
-		.pipe(gulp.dest('dist/'));
+        .pipe(browserify())
+		.pipe(gulp.dest('./angle.min.js'));
 });
 
-// gulp.task('docs', function (cb) {
-//     gulp.src(['README.md', './src/**/*.js'], {read: false})
-//         .pipe(jsdoc(require('./jsdoc.json'), cb));
-// });
-
 gulp.task('docs', function () {
-     gulp.src(src)
-    .pipe(documentation({ format: 'html', github: true, lint: true }))
-    .pipe(gulp.dest('./docs'));
+     return gulp.src(src)
+        .pipe(documentation({ format: 'html', github: true }))
+        .pipe(gulp.dest('./docs'));
 });
 
 gulp.task("default", ['build']);
