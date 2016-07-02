@@ -6,7 +6,6 @@
  * Copyright YOPEY YOPEY LLC and other contributors
  */
 
-/** @namespace Angle */
 var Angle = {
 
     /** @const {number} */

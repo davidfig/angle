@@ -1,8 +1,8 @@
 {
-  "name": "anglejs",
+  "name": "angle.js",
   "version": "1.0.0",
   "description": "Library for calculating angles in javascript",
-  "main": "anglejs.js",
+  "main": "angle.js",
   "dependencies": {
     "gulp-uglify": "^1.5.4",
     "gulp": "^3.9.1",
