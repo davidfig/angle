@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
+    concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
     documentation = require('gulp-documentation');
 
@@ -9,9 +10,10 @@ var src = [
 
 gulp.task("build", function() {
 	return gulp.src(src)
-	    .pipe(uglify())
+        .pipe(concat('angle.min.js'))
         .pipe(browserify())
-		.pipe(gulp.dest('./angle.min.js'));
+	    .pipe(uglify())
+		.pipe(gulp.dest('./'));
 });
 
 gulp.task('docs', function () {
