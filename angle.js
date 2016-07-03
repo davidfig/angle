@@ -1,69 +1,39 @@
-/**
- * @license
- * anglejs.js <https://github.com/davidfig/anglejs>
- * Released under MIT license <https://github.com/davidfig/anglejs/license>
- * Author David Figatner and other contributors
- * Copyright YOPEY YOPEY LLC and other contributors
- */
+/*
+    angle.js (https://github.com/davidfig/anglejs)
+    Released under MIT license (https://github.com/davidfig/anglejs/license)
+    Author David Figatner and other contributors
+    Copyright YOPEY YOPEY LLC and other contributors
+*/
 
-/** @const {number} */
+// constants
 var UP = Math.PI / 2;
-
-/** @const {number} */
 var DOWN = 3 * Math.PI / 2;
-
-/** @const {number} */
 var LEFT = Math.PI;
-
-/** @const {number} */
 var RIGHT = 0;
 
-/** @const {number} */
 var NORTH = UP;
-
-/** @const {number} */
 var SOUTH = DOWN;
-
-/** @const {number} */
 var WEST = LEFT;
-
-/** @const {number} */
 var EAST = RIGHT;
 
-/** @const {number} */
 var PI_2 = Math.PI * 2;
 
-var _toDegreeConversion = 180 / Math.PI;
-var _toRadianConversion = Math.PI / 180;
+// converts between degrees and radians; all other functions expect radians
 
-/**
- * Radian to Degrees
- * @param {number} radian
- * @returns {number} degrees
- */
+var _toDegreeConversion = 180 / Math.PI;
 function toDegrees(radians)
 {
-    return radians * Angle._toDegreeConversion;
+    return radians * _toDegreeConversion;
 }
 
-/**
- * Degrees to Radians
- * @param {number} degrees
- * @returns {number} radian
- */
+var _toRadianConversion = Math.PI / 180;
 function toRadians(degrees)
 {
-    return radians * Angle._toRadianConversion;
+    return radians * _toRadianConversion;
 }
 
-/**
- * Checks whether the target is between angle1 and angle2 (all in radians)
- * baed on: http://stackoverflow.com/questions/11406189/determine-if-angle-lies-between-2-other-angles
- * @param  {number}  target
- * @param  {number}  angle1
- * @param  {number}  angle2
- * @return {Boolean}
- */
+// returns whether the target angle is between angle1 and angle2 (in radians)
+// (based on: http://stackoverflow.com/questions/11406189/determine-if-angle-lies-between-2-other-angles)
 function isAngleBetween(target, angle1, angle2)
 {
     var rAngle = ((angle2 - angle1) % PI_2 + PI_2) % PI_2;
@@ -74,24 +44,18 @@ function isAngleBetween(target, angle1, angle2)
         angle2 = swap;
     }
 
-    // check if it passes through zero
     if (angle1 <= angle2)
     {
         return target >= angle1 && target <= angle2;
     }
-        else
+    else
     {
         return target >= angle1 || target <= angle2;
     }
 }
 
-/**
- * determines whether the difference between twoangles is positive or negative (all in radians)
- * @param  {number} target angle
- * @param  {number} source angle
- * @return {number}
- */
-
+// returns +1 or -1 based on whether the difference between two angles is positive or negative (in radians)
+// EXAMPLE: var actualAngleDelta = differenceAngles(target, source) * differenceAnglesSign(target, source);
 function differenceAnglesSign(target, source)
 {
     function mod(a, n)
@@ -103,24 +67,14 @@ function differenceAnglesSign(target, source)
     return mod((a + PI), PIx2) - PI > 0 ? 1 : -1;
 }
 
-/**
- * determines the normalized difference between two angles (radians)
- * @param {number} a in radians
- * @param {number} b in radians
- */
-
+// returns the normalized difference between two angles (in radians)
 function differenceAngles(a, b)
 {
     var c = Math.abs(a - b) % PIx2;
     return c > PI ? (PIx2 - c) : c;
 }
 
-/**
- * normalizes angle between 0 - PIx2 (radians)
- * @param  {number} radians
- * @return {number}
- */
-
+// returns the normalized angle (0 - PI x 2) (in radians)
 function normalize(radian)
 {
     return radians - PIx2 * Math.floor(radians / PIx2);
@@ -136,6 +90,8 @@ function normalize(radian)
  * @return {number} radian
  */
 
+// returns angle between two points (in radians)
+// PARAMS: (x1, y1, x2, y2) or (point1, point2) where point = {x: x, y: y}
 function angleTwoPoints()
 {
     if (arguments.length === 4)
@@ -148,16 +104,8 @@ function angleTwoPoints()
     }
 }
 
-/**
- * finds distance between two points
- * also accepts 2 point objects {x: x, y: y}
- * @param  {number} x1
- * @param  {number} y1
- * @param  {number} x2
- * @param  {number} y2
- * @return {number} radian
- */
-
+// returns distance between two points
+// PARAMS: (x1, y1, x2, y2) or (point1, point2) where point = {x: x, y: y}
 function distanceTwoPoints()
 {
     if (arguments.length === 2)
@@ -170,15 +118,8 @@ function distanceTwoPoints()
     }
 }
 
-/**
- * finds the square distance between two points
- * also accepts 2 point objects {x: x, y: y}
- * @param  {number} x1
- * @param  {number} y1
- * @param  {number} x2
- * @param  {number} y2
- * @return {number} radian
- */
+// returns the squared distance between two points
+// PARAMS: (x1, y1, x2, y2) or (point1, point2) where point = {x: x, y: y}
 function distanceTwoPointsSquared()
 {
     if (arguments.length === 2)
@@ -191,11 +132,7 @@ function distanceTwoPointsSquared()
     }
 }
 
-/**
- * finds the closest cardinal (N, S, E, W) angle to the given angle
- * @param {number} angle
- * @return {number} angle (equal to the defined constants NORTH, SOUTH, WEST, EAST or LEFT, RIGHT, UP, DOWN)
- */
+// returns the closest cardinal (N, S, E, W) to the given angle (in radians)
 function closestAngle(angle)
 {
     var left = differenceAngles(angle, LEFT);
@@ -220,6 +157,7 @@ function closestAngle(angle)
     }
 }
 
+// exports
 var Angle = {
     UP: UP,
     DOWN: DOWN,
@@ -242,7 +180,7 @@ var Angle = {
     closestAngle: closestAngle
 };
 
-// Add support for AMD (Asynchronous Module Definition) libraries such as require.js.
+// add support for AMD (Asynchronous Module Definition) libraries such as require.js.
 if (typeof define === 'function' && define.amd)
 {
     define(function()
@@ -253,7 +191,7 @@ if (typeof define === 'function' && define.amd)
     });
 }
 
-// Add support for CommonJS libraries such as browserify.
+// add support for CommonJS libraries such as browserify.
 if (typeof exports !== 'undefined')
 {
     exports.Angle = Angle;
