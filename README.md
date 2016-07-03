@@ -6,6 +6,10 @@ Angle.UP
 Angle.DOWN
 Angle.LEFT
 Angle.RIGHT
+Angle.NORTH
+Angle.SOUTH
+Angle.EAST
+Angle.WEST
 Angle.PI_2 (PI x 2)
 
 __Static Functions__
