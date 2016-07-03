@@ -1,6 +1,6 @@
 /*
-    angle.js (https://github.com/davidfig/anglejs)
-    Released under MIT license (https://github.com/davidfig/anglejs/license)
+    angle.js <https://github.com/davidfig/anglejs>
+    Released under MIT license <https://github.com/davidfig/anglejs/license>
     Author David Figatner and other contributors
     Copyright YOPEY YOPEY LLC and other contributors
 */
