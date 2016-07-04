@@ -10,9 +10,15 @@ include angle.js in your project or add to your workflow
 
 #### Constants (radians)
 
-Angle.UP, Angle.DOWN, Angle.LEFT, Angle.RIGHT
+Angle.UP
+Angle.DOWN
+Angle.LEFT
+Angle.RIGHT
 
-Angle.NORTH, Angle.SOUTH, Angle.EAST,Angle.WEST
+Angle.NORTH
+Angle.SOUTH
+Angle.EAST
+Angle.WEST
 
 Angle.PI_2 (PI x 2)
 
