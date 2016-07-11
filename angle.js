@@ -17,6 +17,8 @@ var WEST = LEFT;
 var EAST = RIGHT;
 
 var PI_2 = Math.PI * 2;
+var PI_QUARTER = Math.PI / 4;
+var PI_HALF = Math.PI / 2;
 
 // converts between degrees and radians; all other functions expect radians
 
@@ -64,20 +66,20 @@ function differenceAnglesSign(target, source)
     }
 
     var a = target - source;
-    return mod((a + PI), PIx2) - PI > 0 ? 1 : -1;
+    return mod((a + PI), PI_2) - PI > 0 ? 1 : -1;
 }
 
 // returns the normalized difference between two angles (in radians)
 function differenceAngles(a, b)
 {
-    var c = Math.abs(a - b) % PIx2;
-    return c > PI ? (PIx2 - c) : c;
+    var c = Math.abs(a - b) % PI_2;
+    return c > PI ? (PI_2 - c) : c;
 }
 
 // returns the normalized angle (0 - PI x 2) (in radians)
 function normalize(radian)
 {
-    return radians - PIx2 * Math.floor(radians / PIx2);
+    return radians - PI_2 * Math.floor(radians / PI_2);
 }
 
 /**
