@@ -66,14 +66,14 @@ function differenceAnglesSign(target, source)
     }
 
     var a = target - source;
-    return mod((a + PI), PI_2) - PI > 0 ? 1 : -1;
+    return mod((a + Math.PI), PI_2) - Math.PI > 0 ? 1 : -1;
 }
 
 // returns the normalized difference between two angles (in radians)
 function differenceAngles(a, b)
 {
     var c = Math.abs(a - b) % PI_2;
-    return c > PI ? (PI_2 - c) : c;
+    return c > Math.PI ? (PI_2 - c) : c;
 }
 
 // returns the normalized angle (0 - PI x 2) (in radians)
@@ -170,6 +170,8 @@ var Angle = {
     EAST: EAST,
     WEST: WEST,
     PI_2: PI_2,
+    PI_HALF: PI_HALF,
+    PI_QUARTER: PI_QUARTER,
     toDegrees: toDegrees,
     toRadians: toRadians,
     isAngleBetween: isAngleBetween,
