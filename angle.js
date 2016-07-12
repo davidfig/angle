@@ -76,6 +76,15 @@ function differenceAngles(a, b)
     return c > Math.PI ? (PI_2 - c) : c;
 }
 
+// returns a target angle that is the shortest way to rotate an object between start and to (i.e., may choose a negative angle)
+function shortestAngle(start, to)
+{
+    var difference = differenceAngles(to, start);
+    var sign = differenceAnglesSign(to, start);
+    var delta = difference * sign;
+    return delta + start;
+}
+
 // returns the normalized angle (0 - PI x 2) (in radians)
 function normalize(radian)
 {
