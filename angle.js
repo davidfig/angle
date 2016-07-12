@@ -186,6 +186,7 @@ var Angle = {
     isAngleBetween: isAngleBetween,
     differenceAnglesSign: differenceAnglesSign,
     differenceAngles: differenceAngles,
+    shortestAngle: shortestAngle,
     normalize: normalize,
     angleTwoPoints: angleTwoPoints,
     distanceTwoPoints: distanceTwoPoints,
