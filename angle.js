@@ -86,7 +86,7 @@ function shortestAngle(start, to)
 }
 
 // returns the normalized angle (0 - PI x 2) (in radians)
-function normalize(radian)
+function normalize(radians)
 {
     return radians - PI_2 * Math.floor(radians / PI_2);
 }
