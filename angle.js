@@ -168,6 +168,12 @@ function closestAngle(angle)
     }
 }
 
+// returns whether a1 is equal to a2
+function equals(a1, a2)
+{
+    return normalize(a1) === normalize(a2);
+}
+
 // exports
 var Angle = {
     UP: UP,
@@ -191,7 +197,8 @@ var Angle = {
     angleTwoPoints: angleTwoPoints,
     distanceTwoPoints: distanceTwoPoints,
     distanceTwoPointsSquared: distanceTwoPointsSquared,
-    closestAngle: closestAngle
+    closestAngle: closestAngle,
+    equals: equals
 };
 
 // add support for AMD (Asynchronous Module Definition) libraries such as require.js.
