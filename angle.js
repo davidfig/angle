@@ -203,10 +203,10 @@ class Angle
      */
     closestAngle(angle)
     {
-        var left = this.differenceAngles(angle, this.LEFT);
-        var right = this.differenceAngles(angle, this.RIGHT);
-        var up = this.differenceAngles(angle, this.UP);
-        var down = this.differenceAngles(angle, this.DOWN);
+        const left = this.differenceAngles(angle, this.LEFT);
+        const right = this.differenceAngles(angle, this.RIGHT);
+        const up = this.differenceAngles(angle, this.UP);
+        const down = this.differenceAngles(angle, this.DOWN);
         if (left <= right && left <= up && left <= down)
         {
             return this.LEFT;
