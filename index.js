@@ -1,16 +1,12 @@
-## yy-angle
-Library of useful functions for working with angles in javascript. 
+// angle.js <https://github.com/davidfig/anglejs>
+// Released under MIT license <https://github.com/davidfig/angle/blob/master/LICENSE>
+// Author: David Figatner
+// Copyright (c) 2016-17 YOPEY YOPEY LLC
 
-## rationale
-I wanted to make my life much easier when working with angles since they usually hurt my brain. 
+const _toDegreeConversion = 180 / Math.PI
+const _toRadianConversion = Math.PI / 180
 
-## Installation
-include angle.js in your project or add to your workflow
 
-    npm i yy-angle
-
-## API
-```
 /** @constant {number} */
 const UP = Math.PI / 2
 const DOWN = 3 * Math.PI / 2
@@ -32,6 +28,9 @@ const PI_HALF = Math.PI / 2
  * @return {number} degrees
  */
 function toDegrees(radians)
+{
+    return radians * _toDegreeConversion
+}
 
 /**
  * converts from degrees to radians (all other functions expect radians)
@@ -39,6 +38,9 @@ function toDegrees(radians)
  * @return {number} radians
  */
 function toRadians(degrees)
+{
+    return degrees * _toRadianConversion
+}
 
 /**
  * returns whether the target angle is between angle1 and angle2 (in radians)
@@ -49,6 +51,24 @@ function toRadians(degrees)
  * @return {boolean}
  */
 function isAngleBetween(target, angle1, angle2)
+{
+    const rAngle = ((angle2 - angle1) % PI_2 + PI_2) % PI_2
+    if (rAngle >= Math.PI)
+    {
+        const swap = angle1
+        angle1 = angle2
+        angle2 = swap
+    }
+
+    if (angle1 <= angle2)
+    {
+        return target >= angle1 && target <= angle2
+    }
+    else
+    {
+        return target >= angle1 || target <= angle2
+    }
+}
 
 /**
  * returns +1 or -1 based on whether the difference between two angles is positive or negative (in radians)
@@ -57,6 +77,15 @@ function isAngleBetween(target, angle1, angle2)
  * @return {number} 1 or -1
  */
 function differenceAnglesSign(target, source)
+{
+    function mod(a, n)
+    {
+        return (a % n + n) % n
+    }
+
+    const a = target - source
+    return mod((a + Math.PI), PI_2) - Math.PI > 0 ? 1 : -1
+}
 
 /**
  * returns the normalized difference between two angles (in radians)
@@ -65,6 +94,10 @@ function differenceAnglesSign(target, source)
  * @return {number} normalized difference between a and b
  */
 function differenceAngles(a, b)
+{
+    const c = Math.abs(a - b) % PI_2
+    return c > Math.PI ? (PI_2 - c) : c
+}
 
 /**
  * returns a target angle that is the shortest way to rotate an object between start and to--may choose a negative angle
@@ -73,6 +106,12 @@ function differenceAngles(a, b)
  * @return {number} shortest target angle
  */
 function shortestAngle(start, to)
+{
+    const difference = differenceAngles(to, start)
+    const sign = differenceAnglesSign(to, start)
+    const delta = difference * sign
+    return delta + start
+}
 
 /**
  * returns the normalized angle (0 - PI x 2)
@@ -80,6 +119,9 @@ function shortestAngle(start, to)
  * @return {number} normalized angle in radians
  */
 function normalize(radians)
+{
+    return radians - PI_2 * Math.floor(radians / PI_2)
+}
 
 /**
  * returns angle between two points (in radians)
@@ -92,6 +134,16 @@ function normalize(radians)
  * @return {number} angle
  */
 function angleTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
+{
+    if (arguments.length === 4)
+    {
+        return Math.atan2(arguments[3] - arguments[1], arguments[2] - arguments[0])
+    }
+    else
+    {
+        return Math.atan2(arguments[1].y - arguments[0].y, arguments[1].x - arguments[0].x)
+    }
+}
 
 /**
  * returns distance between two points
@@ -104,6 +156,16 @@ function angleTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
  * @return {number} distance
  */
 function distanceTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
+{
+    if (arguments.length === 2)
+    {
+        return Math.sqrt(Math.pow(arguments[1].x - arguments[0].x, 2) + Math.pow(arguments[1].y - arguments[0].y, 2))
+    }
+    else
+    {
+        return Math.sqrt(Math.pow(arguments[2] - arguments[0], 2) + Math.pow(arguments[3] - arguments[1], 2))
+    }
+}
 
 /**
  * returns the squared distance between two points
@@ -116,6 +178,16 @@ function distanceTwoPoints(/* (point1, point2) OR (x1, y1, x2, y2) */)
  * @return {number} squared distance
  */
 function distanceTwoPointsSquared(/* (point1, point2) OR (x1, y1, x2, y2) */)
+{
+    if (arguments.length === 2)
+    {
+        return Math.pow(arguments[1].x - arguments[0].x, 2) + Math.pow(arguments[1].y - arguments[0].y, 2)
+    }
+    else
+    {
+        return Math.pow(arguments[2] - arguments[0], 2) + Math.pow(arguments[3] - arguments[1], 2)
+    }
+}
 
 /**
  * returns the closest cardinal (N, S, E, W) to the given angle (in radians)
@@ -123,6 +195,28 @@ function distanceTwoPointsSquared(/* (point1, point2) OR (x1, y1, x2, y2) */)
  * @return {number} closest cardinal in radians
  */
 function closestAngle(angle)
+{
+    const left = differenceAngles(angle, LEFT)
+    const right = differenceAngles(angle, RIGHT)
+    const up = differenceAngles(angle, UP)
+    const down = differenceAngles(angle, DOWN)
+    if (left <= right && left <= up && left <= down)
+    {
+        return LEFT
+    }
+    else if (right <= up && right <= down)
+    {
+        return RIGHT
+    }
+    else if (up <= down)
+    {
+        return UP
+    }
+    else
+    {
+        return DOWN
+    }
+}
 
 /**
  * checks whether angles a1 and a2 are equal (after normalizing)
@@ -131,6 +225,9 @@ function closestAngle(angle)
  * @return {boolean} a1 === a2
  */
 function equals(a1, a2)
+{
+    return normalize(a1) === normalize(a2)
+}
 
 /**
  * return a text representation of the cardinal direction
@@ -138,7 +235,33 @@ function equals(a1, a2)
  * @returns {string} UP, DOWN, LEFT, RIGHT, or NOT CARDINAL
  */
 function explain(angle)
-```
-## license  
-MIT License  
-(c) 2017 [YOPEY YOPEY LLC](https://yopeyopey.com/) by [David Figatner](https://twitter.com/yopey_yopey/)
+{
+    switch (angle)
+    {
+        case UP: return 'UP'
+        case DOWN: return 'DOWN'
+        case LEFT: return 'LEFT'
+        case RIGHT: return 'RIGHT'
+        default: return 'NOT CARDINAL'
+    }
+}
+
+module.exports = {
+    UP, DOWN, LEFT, RIGHT,
+    NORTH, SOUTH, WEST, EAST,
+    PI_2, PI_QUARTER, PI_HALF,
+
+    toDegrees,
+    toRadians,
+    isAngleBetween,
+    differenceAnglesSign,
+    differenceAngles,
+    shortestAngle,
+    normalize,
+    angleTwoPoints,
+    distanceTwoPoints,
+    distanceTwoPointsSquared,
+    closestAngle,
+    equals,
+    explain
+}

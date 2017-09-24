@@ -1,11 +1,11 @@
 {
   "name": "yy-angle",
-  "version": "1.0.0",
-  "description": "Simple javascript library for calculating angles",
-  "main": "angle.js",
+  "version": "1.1.0",
+  "description": "Library of useful functions for working with angles in javascript",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "node_modules/.bin/jsdoc2md --template README.hbs angle.js > README.md"
+    "docs": "markdown-api README.md index.js",
+    "prepare": "npm run docs"
   },
   "repository": {
     "type": "git",
