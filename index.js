@@ -222,11 +222,19 @@ function closestAngle(angle)
  * checks whether angles a1 and a2 are equal (after normalizing)
  * @param {number} a1
  * @param {number} a2
+ * @param {number} [wiggle] return true if the difference between the angles is <= wiggle
  * @return {boolean} a1 === a2
  */
-function equals(a1, a2)
+function equals(a1, a2, wiggle)
 {
-    return normalize(a1) === normalize(a2)
+    if (wiggle)
+    {
+        return differenceAngles(a1, a2) < wiggle
+    }
+    else
+    {
+        return normalize(a1) === normalize(a2)
+    }
 }
 
 /**
