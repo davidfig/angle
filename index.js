@@ -3,24 +3,23 @@
 // Author: David Figatner
 // Copyright (c) 2016-17 YOPEY YOPEY LLC
 
-const _toDegreeConversion = 180 / Math.PI
-const _toRadianConversion = Math.PI / 180
-
+var _toDegreeConversion = 180 / Math.PI
+var _toRadianConversion = Math.PI / 180
 
 /** @constant {number} */
-const UP = Math.PI / 2
-const DOWN = 3 * Math.PI / 2
-const LEFT = Math.PI
-const RIGHT = 0
+var UP = Math.PI / 2
+var DOWN = 3 * Math.PI / 2
+var LEFT = Math.PI
+var RIGHT = 0
 
-const NORTH = UP
-const SOUTH = DOWN
-const WEST = LEFT
-const EAST = RIGHT
+var NORTH = UP
+var SOUTH = DOWN
+var WEST = LEFT
+var EAST = RIGHT
 
-const PI_2 = Math.PI * 2
-const PI_QUARTER = Math.PI / 4
-const PI_HALF = Math.PI / 2
+var PI_2 = Math.PI * 2
+var PI_QUARTER = Math.PI / 4
+var PI_HALF = Math.PI / 2
 
 /**
  * converts from radians to degrees (all other functions expect radians)
@@ -52,10 +51,10 @@ function toRadians(degrees)
  */
 function isAngleBetween(target, angle1, angle2)
 {
-    const rAngle = ((angle2 - angle1) % PI_2 + PI_2) % PI_2
+    var rAngle = ((angle2 - angle1) % PI_2 + PI_2) % PI_2
     if (rAngle >= Math.PI)
     {
-        const swap = angle1
+        var swap = angle1
         angle1 = angle2
         angle2 = swap
     }
@@ -83,7 +82,7 @@ function differenceAnglesSign(target, source)
         return (a % n + n) % n
     }
 
-    const a = target - source
+    var a = target - source
     return mod((a + Math.PI), PI_2) - Math.PI > 0 ? 1 : -1
 }
 
@@ -95,7 +94,7 @@ function differenceAnglesSign(target, source)
  */
 function differenceAngles(a, b)
 {
-    const c = Math.abs(a - b) % PI_2
+    var c = Math.abs(a - b) % PI_2
     return c > Math.PI ? (PI_2 - c) : c
 }
 
@@ -107,9 +106,9 @@ function differenceAngles(a, b)
  */
 function shortestAngle(start, to)
 {
-    const difference = differenceAngles(to, start)
-    const sign = differenceAnglesSign(to, start)
-    const delta = difference * sign
+    var difference = differenceAngles(to, start)
+    var sign = differenceAnglesSign(to, start)
+    var delta = difference * sign
     return delta + start
 }
 
@@ -196,10 +195,10 @@ function distanceTwoPointsSquared(/* (point1, point2) OR (x1, y1, x2, y2) */)
  */
 function closestAngle(angle)
 {
-    const left = differenceAngles(angle, LEFT)
-    const right = differenceAngles(angle, RIGHT)
-    const up = differenceAngles(angle, UP)
-    const down = differenceAngles(angle, DOWN)
+    var left = differenceAngles(angle, LEFT)
+    var right = differenceAngles(angle, RIGHT)
+    var up = differenceAngles(angle, UP)
+    var down = differenceAngles(angle, DOWN)
     if (left <= right && left <= up && left <= down)
     {
         return LEFT

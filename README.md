@@ -10,21 +10,21 @@ include angle.js in your project or add to your workflow
     npm i yy-angle
 
 ## API
-```
+```js
 /** @constant {number} */
-const UP = Math.PI / 2
-const DOWN = 3 * Math.PI / 2
-const LEFT = Math.PI
-const RIGHT = 0
+var UP = Math.PI / 2
+var DOWN = 3 * Math.PI / 2
+var LEFT = Math.PI
+var RIGHT = 0
 
-const NORTH = UP
-const SOUTH = DOWN
-const WEST = LEFT
-const EAST = RIGHT
+var NORTH = UP
+var SOUTH = DOWN
+var WEST = LEFT
+var EAST = RIGHT
 
-const PI_2 = Math.PI * 2
-const PI_QUARTER = Math.PI / 4
-const PI_HALF = Math.PI / 2
+var PI_2 = Math.PI * 2
+var PI_QUARTER = Math.PI / 4
+var PI_HALF = Math.PI / 2
 
 /**
  * converts from radians to degrees (all other functions expect radians)
@@ -139,6 +139,7 @@ function equals(a1, a2, wiggle)
  * @returns {string} UP, DOWN, LEFT, RIGHT, or NOT CARDINAL
  */
 function explain(angle)
+
 ```
 ## license  
 MIT License  
